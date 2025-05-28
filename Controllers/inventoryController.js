@@ -28,11 +28,15 @@ const updateInventory = async (req, res) => {
     try {
         const {productId, quantity} = req.body;
 
-        const product = await Product.findByPk(productId);
-        if (!product) {
-            res.status(404).json({error: "Product not found"});
+        if (!productId || !quantity) {
+            return res.status(400).json({ error: "productId and quantity are required" });
         }
 
+        const product = await Product.findByPk(productId);
+        if (!product) {
+            return res.status(404).json({error: "Product not found"});
+        }
+        
         product.quantity = parseInt(quantity);
         await product.save();
 

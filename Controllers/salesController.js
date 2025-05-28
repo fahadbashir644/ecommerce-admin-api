@@ -101,7 +101,7 @@ const getCategoriesSummary = async (req, res) => {
         const categoryList = categories ? categories.split(',') : [];
     
         if (categoryList.length == 0) {
-            res.status(500).json({error: "Please provide atleast one category"});
+            return res.status(500).json({error: "Please provide atleast one category"});
         }
     
         const salesWhere = {};
